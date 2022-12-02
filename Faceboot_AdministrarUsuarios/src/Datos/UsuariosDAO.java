@@ -12,10 +12,10 @@ import javax.persistence.EntityManager;
  * @author Carlos
  */
 public class UsuariosDAO implements IUsuariosDAO{
-        private IConexionBD conexion;
+        private IConexionUsuariosBD conexion;
 
         public UsuariosDAO() {
-        this.conexion = new ConexionBD();
+        this.conexion = new ConexionUsuariosBD();
     }
     @Override
     public boolean RegistrarUsuario(Usuario usuarios) {
@@ -31,4 +31,17 @@ public class UsuariosDAO implements IUsuariosDAO{
             return false;
         }
     }
+    
+    @Override
+    public Usuario consultar(Long id_usuario) {
+        try {
+            EntityManager em = this.conexion.crearConexion();
+            return em.find(Usuario.class, id_usuario);
+        } catch (IllegalStateException ex) {
+            System.err.print("No se pudo encontrar al usuario con el ID: " + id_usuario);
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
 }

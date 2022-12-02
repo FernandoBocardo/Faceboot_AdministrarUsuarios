@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
  *
  * @author Carlos
  */
-public class ConexionBD implements IConexionBD{
+public class ConexionUsuariosBD implements IConexionUsuariosBD{
     @Override
     public EntityManager crearConexion() throws IllegalStateException {
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("Faceboot_AdministrarUsuariosPU");

@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
  *
  * @author Carlos
  */
-public interface IConexionBD {
+public interface IConexionUsuariosBD {
     public EntityManager crearConexion() throws IllegalStateException;
 
 }

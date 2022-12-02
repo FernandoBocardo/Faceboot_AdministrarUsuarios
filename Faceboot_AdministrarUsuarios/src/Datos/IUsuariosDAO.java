@@ -11,5 +11,6 @@ import Dominio.Usuario;
  * @author Carlos
  */
 public interface IUsuariosDAO {
-        public boolean RegistrarUsuario(Usuario usuario);
+    public boolean RegistrarUsuario(Usuario usuario);
+    public Usuario consultar(Long id_usuario);
 }

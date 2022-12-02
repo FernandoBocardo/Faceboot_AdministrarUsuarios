@@ -4,6 +4,8 @@
  */
 package pruebas;
 
+import Datos.IUsuariosDAO;
+import Datos.UsuariosDAO;
 import Dominio.Usuario;
 import Negocios.CtrlUsuario;
 
@@ -19,10 +21,10 @@ public class pruebas {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        CtrlUsuario ctrl = new CtrlUsuario();
+        IUsuariosDAO ctrl = new UsuariosDAO();
         String nombre = "vege", telefono = "6441435675", correo = "bocardo@gmail.com", contraseña = "321456", sexo = "masculino";
         Usuario usuario = new Usuario(nombre, telefono, correo, contraseña, sexo);
-//        ctrl.agregar(usuario);
+        ctrl.RegistrarUsuario(usuario);
         
     }
     

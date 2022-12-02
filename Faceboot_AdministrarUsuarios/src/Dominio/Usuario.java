@@ -22,6 +22,8 @@ import javax.persistence.Table;
 @Entity
 @Table (name="usuarios")
 public class Usuario implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
     @Id
     @Column (name="id_usuario",length=11)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,9 @@ public class Usuario implements Serializable{
     
     @Column (name="nombre",nullable=false,length=45)
     private String nombre;
+    
+    @Column (name="foto",nullable=true,length=45)
+    private String foto;
     
     @Column (name="numeroTelefono",nullable=false,length=45)
     private String numeroTelefono;
@@ -42,33 +47,27 @@ public class Usuario implements Serializable{
     @Column (name="sexo",nullable=false,length=45)
     private String sexo;
     
-//    @Column (name="imagenPerfil",nullable=false,length=45)
-//    private FileInputStream imagenPerfil;
-    
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientes")
-//    private List<Ventas> ventas;
-     public Usuario() {
+    public Usuario() {
     }
 
     public Usuario(Long id) {
         this.id = id;
     }
 
-    public Usuario(Long id, String nombre, String numeroTelefono, String correo, String contraseña, String sexo) {
-        this.id = id;
+    public Usuario(String nombre, String foto, String numeroTelefono, String correo, String contrasena, String sexo) {
         this.nombre = nombre;
+        this.foto = foto;
         this.numeroTelefono = numeroTelefono;
         this.correo = correo;
-        this.contrasena = contraseña;
+        this.contrasena = contrasena;
         this.sexo = sexo;
-//        this.imagenPerfil = imagenPerfil;
     }
 
-    public Usuario(String nombre, String numeroTelefono, String correo, String contraseña, String sexo) {
+    public Usuario(String nombre, String numeroTelefono, String correo, String contrasena, String sexo) {
         this.nombre = nombre;
         this.numeroTelefono = numeroTelefono;
         this.correo = correo;
-        this.contrasena = contraseña;
+        this.contrasena = contrasena;
         this.sexo = sexo;
     }
      
@@ -120,14 +119,14 @@ public class Usuario implements Serializable{
         this.sexo = sexo;
     }
 
-//    public FileInputStream getImagenPerfil() {
-//        return imagenPerfil;
-//    }
-//
-//    public void setImagenPerfil(FileInputStream imagenPerfil) {
-//        this.imagenPerfil = imagenPerfil;
-//    }
+    public String getFoto() {
+        return foto;
+    }
 
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -152,13 +151,9 @@ public class Usuario implements Serializable{
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", numeroTelefono=" + numeroTelefono + ", correo=" + correo + ", contrasena=" + contrasena + ", sexo=" + sexo + '}';
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", numeroTelefono=" + numeroTelefono + ", correo=" + correo + ", contrasena=" + contrasena + ", sexo=" + sexo + '}';
     }
-
-    
-    
-    
-    
+ 
 }
     
     
