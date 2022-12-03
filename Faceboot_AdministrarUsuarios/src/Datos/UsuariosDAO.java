@@ -5,6 +5,7 @@
 package Datos;
 
 import Dominio.Usuario;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -20,11 +21,11 @@ public class UsuariosDAO implements IUsuariosDAO{
         this.conexion = ConexionUsuariosBD.getInstance();
     }
     @Override
-    public boolean RegistrarUsuario(Usuario usuarios) {
+    public boolean registrarUsuario(Usuario usuario) {
         try {
             EntityManager em = this.conexion.crearConexion();
             em.getTransaction().begin();
-            em.persist(usuarios);
+            em.persist(usuario);
             em.getTransaction().commit();
             return true;
         } catch (IllegalStateException ex) {
@@ -34,13 +35,44 @@ public class UsuariosDAO implements IUsuariosDAO{
         }
     }
     
+    
+    
     @Override
-    public Usuario consultar(Long id_usuario) {
+    public Usuario consultarUsuario(Long id_usuario) {
         try {
             EntityManager em = this.conexion.crearConexion();
             return em.find(Usuario.class, id_usuario);
         } catch (IllegalStateException ex) {
             System.err.print("No se pudo encontrar al usuario con el ID: " + id_usuario);
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean editarUsuario(Usuario usuario) {
+        try {
+            EntityManager em = this.conexion.crearConexion();
+            em.getTransaction().begin();
+            em.merge(consultarUsuario(usuario.getId()));
+            em.getTransaction().commit();
+            return true;
+        } catch (IllegalStateException ex) {
+            System.err.print("No se pudo editar el usuario");
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    @Override
+    public List<Usuario> consultarTodos() {
+        try {
+            EntityManager em = this.conexion.crearConexion();
+            return em.createQuery(
+                "SELECT u FROM Usuario u")
+                .getResultList();
+        } catch (IllegalStateException ex) {
+            System.err.print("No se pudo consultar los usuarios");
             ex.printStackTrace();
             return null;
         }

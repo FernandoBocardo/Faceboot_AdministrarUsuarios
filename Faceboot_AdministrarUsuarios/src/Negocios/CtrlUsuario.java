@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import Datos.UsuariosDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.List;
 /**
  *
  * @author Carlos
@@ -39,12 +40,37 @@ public class CtrlUsuario {
         return usuario;
     }
     
-    public boolean agregar(String usuarioJson)
+    public boolean registrarUsuario(String usuarioJson)
     {
-        if(usuariosDAO.RegistrarUsuario(mapper(usuarioJson)))
+        if(usuariosDAO.registrarUsuario(mapper(usuarioJson)))
         {
             return true;
         }
         return false;
     }
+    
+    public Usuario iniciarSesion(String usuarioJson)
+    {
+        Usuario usuario = mapper(usuarioJson);
+        List<Usuario> usuarios = usuariosDAO.consultarTodos();
+        for (Usuario u : usuarios)
+        {
+            if(u.getCorreo().equals(usuario.getCorreo()) && u.getContrasena().equals(usuario.getContrasena()))
+            {
+                return u;
+            }
+        }
+        return null;
+    }
+    
+    public boolean editarUsuario(String usuarioJson)
+    {
+        return usuariosDAO.editarUsuario(mapper(usuarioJson));
+    }
+    
+    public Usuario consultarUsuario(String usuarioJson)
+    {
+        return usuariosDAO.consultarUsuario(mapper(usuarioJson).getId());
+    }
+    
 }

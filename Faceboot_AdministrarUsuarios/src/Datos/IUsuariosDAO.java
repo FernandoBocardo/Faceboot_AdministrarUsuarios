@@ -5,12 +5,15 @@
 package Datos;
 
 import Dominio.Usuario;
+import java.util.List;
 
 /**
  *
  * @author Carlos
  */
 public interface IUsuariosDAO {
-    public boolean RegistrarUsuario(Usuario usuario);
-    public Usuario consultar(Long id_usuario);
+    public boolean registrarUsuario(Usuario usuario);
+    public List<Usuario> consultarTodos();
+    public boolean editarUsuario(Usuario usuario);
+    public Usuario consultarUsuario(Long id_usuario);
 }
