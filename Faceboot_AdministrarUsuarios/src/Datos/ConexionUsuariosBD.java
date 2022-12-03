@@ -13,10 +13,33 @@ import javax.persistence.Persistence;
  * @author Carlos
  */
 public class ConexionUsuariosBD implements IConexionUsuariosBD{
+    
+    private static volatile ConexionUsuariosBD instance;
+    private EntityManager em;
+    
+    public static ConexionUsuariosBD getInstance() 
+    {
+        ConexionUsuariosBD result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(ConexionUsuariosBD.class) 
+        {
+            if(instance == null) 
+            {
+                instance = new ConexionUsuariosBD();
+            }
+        return instance;
+        }
+    }
+    
     @Override
     public EntityManager crearConexion() throws IllegalStateException {
-        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("Faceboot_AdministrarUsuariosPU");
-        EntityManager em = emFactory.createEntityManager();
+        if(this.em == null)
+        {
+            EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("Faceboot_AdministrarUsuariosPU");
+            this.em = emFactory.createEntityManager();
+        }
         return em;
     }
 }

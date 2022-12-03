@@ -17,7 +17,12 @@ import java.io.IOException;
  */
 public class CtrlUsuario {
     
-    private IUsuariosDAO usuarioDAO = new UsuariosDAO();
+    private IUsuariosDAO usuariosDAO;
+    
+    public CtrlUsuario()
+    {
+        this.usuariosDAO = new UsuariosDAO();
+    }
     
     public Usuario mapper(String json)
     {
@@ -36,7 +41,7 @@ public class CtrlUsuario {
     
     public boolean agregar(String usuarioJson)
     {
-        if(usuarioDAO.RegistrarUsuario(mapper(usuarioJson)))
+        if(usuariosDAO.RegistrarUsuario(mapper(usuarioJson)))
         {
             return true;
         }

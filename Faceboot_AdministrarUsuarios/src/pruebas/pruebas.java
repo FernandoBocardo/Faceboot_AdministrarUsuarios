@@ -22,7 +22,7 @@ public class pruebas {
         // TODO code application logic here
         
         IUsuariosDAO ctrl = new UsuariosDAO();
-        String nombre = "vege", telefono = "6441435675", correo = "bocardo@gmail.com", contraseña = "321456", sexo = "masculino";
+        String nombre = "willy", telefono = "6554567865", correo = "willy@gmail.com", contraseña = "123456", sexo = "masculino";
         Usuario usuario = new Usuario(nombre, telefono, correo, contraseña, sexo);
         ctrl.RegistrarUsuario(usuario);
         

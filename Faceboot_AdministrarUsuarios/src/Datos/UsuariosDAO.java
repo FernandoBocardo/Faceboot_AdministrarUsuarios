@@ -12,10 +12,12 @@ import javax.persistence.EntityManager;
  * @author Carlos
  */
 public class UsuariosDAO implements IUsuariosDAO{
-        private IConexionUsuariosBD conexion;
+    
+    private IConexionUsuariosBD conexion;
 
-        public UsuariosDAO() {
-        this.conexion = new ConexionUsuariosBD();
+    public UsuariosDAO() 
+    {
+        this.conexion = ConexionUsuariosBD.getInstance();
     }
     @Override
     public boolean RegistrarUsuario(Usuario usuarios) {
