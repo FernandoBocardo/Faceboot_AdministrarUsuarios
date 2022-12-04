@@ -70,6 +70,12 @@ public class Usuario implements Serializable{
         this.contrasena = contrasena;
         this.sexo = sexo;
     }
+    
+    public Usuario(String correo, String contrasena)
+    {
+        this.correo = correo;
+        this.contrasena = contrasena;
+    }
      
     public Long getId() {
         return id;

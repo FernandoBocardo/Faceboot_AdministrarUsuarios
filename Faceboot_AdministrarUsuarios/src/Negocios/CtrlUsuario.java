@@ -19,10 +19,12 @@ import java.util.List;
 public class CtrlUsuario {
     
     private IUsuariosDAO usuariosDAO;
+    private ObjectMapper objectMapper;
     
     public CtrlUsuario()
     {
         this.usuariosDAO = new UsuariosDAO();
+        this.objectMapper = new ObjectMapper();
     }
     
     public Usuario mapper(String json)
@@ -30,7 +32,6 @@ public class CtrlUsuario {
         Usuario usuario = null;
         try
         {
-            ObjectMapper objectMapper = new ObjectMapper();
             usuario = objectMapper.readValue(json, Usuario.class);
         }
         catch(Exception e)
@@ -49,7 +50,7 @@ public class CtrlUsuario {
         return false;
     }
     
-    public Usuario iniciarSesion(String usuarioJson)
+    public String iniciarSesion(String usuarioJson)
     {
         Usuario usuario = mapper(usuarioJson);
         List<Usuario> usuarios = usuariosDAO.consultarTodos();
@@ -57,7 +58,15 @@ public class CtrlUsuario {
         {
             if(u.getCorreo().equals(usuario.getCorreo()) && u.getContrasena().equals(usuario.getContrasena()))
             {
-                return u;
+                String jsonUsuario = null;
+                try 
+                {
+                    jsonUsuario = objectMapper.writeValueAsString(u);
+                } catch (Exception e) 
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+                return jsonUsuario;
             }
         }
         return null;
