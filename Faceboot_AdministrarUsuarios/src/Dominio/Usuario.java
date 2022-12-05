@@ -32,8 +32,8 @@ public class Usuario implements Serializable{
     @Column (name="nombre",nullable=false,length=45)
     private String nombre;
     
-    @Column (name="foto",nullable=true,length=45)
-    private String foto;
+    @Column (name="foto",nullable=true)
+    private byte[] foto;
     
     @Column (name="numeroTelefono",nullable=false,length=45)
     private String numeroTelefono;
@@ -54,27 +54,13 @@ public class Usuario implements Serializable{
         this.id = id;
     }
 
-    public Usuario(String nombre, String foto, String numeroTelefono, String correo, String contrasena, String sexo) {
+    public Usuario(String nombre, byte[] foto, String numeroTelefono, String correo, String contrasena, String sexo) {
         this.nombre = nombre;
         this.foto = foto;
         this.numeroTelefono = numeroTelefono;
         this.correo = correo;
         this.contrasena = contrasena;
         this.sexo = sexo;
-    }
-
-    public Usuario(String nombre, String numeroTelefono, String correo, String contrasena, String sexo) {
-        this.nombre = nombre;
-        this.numeroTelefono = numeroTelefono;
-        this.correo = correo;
-        this.contrasena = contrasena;
-        this.sexo = sexo;
-    }
-    
-    public Usuario(String correo, String contrasena)
-    {
-        this.correo = correo;
-        this.contrasena = contrasena;
     }
      
     public Long getId() {
@@ -125,11 +111,11 @@ public class Usuario implements Serializable{
         this.sexo = sexo;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
     

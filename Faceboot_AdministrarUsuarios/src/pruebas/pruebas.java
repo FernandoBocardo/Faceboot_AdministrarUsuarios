@@ -8,6 +8,7 @@ import Datos.IUsuariosDAO;
 import Datos.UsuariosDAO;
 import Dominio.Usuario;
 import Negocios.CtrlUsuario;
+import Negocios.UsuarioBuilder;
 
 /**
  *
@@ -23,8 +24,13 @@ public class pruebas {
         
         IUsuariosDAO ctrl = new UsuariosDAO();
         String nombre = "willy", telefono = "6554567865", correo = "willy@gmail.com", contraseña = "123456", sexo = "masculino";
-        Usuario usuario = new Usuario(nombre, telefono, correo, contraseña, sexo);
-        ctrl.registrarUsuario(usuario);
+        UsuarioBuilder builder = new UsuarioBuilder();
+        builder.buildNombre(nombre);
+        builder.buildContrasena(contraseña);
+        builder.buildCorreo(correo);
+        builder.buildNumeroTelefono(telefono);
+        builder.buildSexo(sexo);
+        ctrl.registrarUsuario(builder.getResultado());
         
     }
     

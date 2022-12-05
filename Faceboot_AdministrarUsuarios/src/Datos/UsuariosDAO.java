@@ -54,7 +54,14 @@ public class UsuariosDAO implements IUsuariosDAO{
         try {
             EntityManager em = this.conexion.crearConexion();
             em.getTransaction().begin();
-            em.merge(consultarUsuario(usuario.getId()));
+            Usuario usuarioConsultado = consultarUsuario(usuario.getId());
+            usuarioConsultado.setNombre(usuario.getNombre());
+            usuarioConsultado.setContrasena(usuario.getContrasena());
+            if(usuario.getFoto() != null)
+            {
+                usuarioConsultado.setFoto(usuario.getFoto());
+            }
+            usuarioConsultado.setSexo(usuario.getSexo());
             em.getTransaction().commit();
             return true;
         } catch (IllegalStateException ex) {
@@ -73,6 +80,22 @@ public class UsuariosDAO implements IUsuariosDAO{
                 .getResultList();
         } catch (IllegalStateException ex) {
             System.err.print("No se pudo consultar los usuarios");
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Usuario consultarPorNombre(String nombreUsuario) {
+        try {
+            EntityManager em = this.conexion.crearConexion();
+            List<Usuario> usuarioConsultado = em.createQuery(
+                "SELECT u FROM Usuario u WHERE u.nombre = ?1")
+                .setParameter(1, nombreUsuario)
+                .getResultList();
+            return usuarioConsultado.get(0);
+        } catch (IllegalStateException ex) {
+            System.err.print("No se pudo consultar las publicaciones");
             ex.printStackTrace();
             return null;
         }

@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class CtrlUsuario {
     
+    private static volatile CtrlUsuario instance;
     private IUsuariosDAO usuariosDAO;
     private ObjectMapper objectMapper;
     
@@ -25,6 +26,22 @@ public class CtrlUsuario {
     {
         this.usuariosDAO = new UsuariosDAO();
         this.objectMapper = new ObjectMapper();
+    }
+    
+    public static CtrlUsuario getInstance() 
+    {
+        CtrlUsuario result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(CtrlUsuario.class) 
+        {
+            if(instance == null) 
+            {
+                instance = new CtrlUsuario();
+            }
+        return instance;
+        }
     }
     
     public Usuario mapper(String json)
@@ -80,6 +97,11 @@ public class CtrlUsuario {
     public Usuario consultarUsuario(String usuarioJson)
     {
         return usuariosDAO.consultarUsuario(mapper(usuarioJson).getId());
+    }
+    
+    public Usuario consultarPorNombre(String nombreUsuario) 
+    {
+        return usuariosDAO.consultarPorNombre(nombreUsuario);
     }
     
 }

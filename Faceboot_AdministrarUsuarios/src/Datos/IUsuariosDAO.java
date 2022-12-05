@@ -16,4 +16,5 @@ public interface IUsuariosDAO {
     public List<Usuario> consultarTodos();
     public boolean editarUsuario(Usuario usuario);
     public Usuario consultarUsuario(Long id_usuario);
+    public Usuario consultarPorNombre(String nombreUsuario);
 }
